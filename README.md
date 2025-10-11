@@ -71,10 +71,10 @@ pnpm sdk:build
 
 | Framework | Command | Port | FHEVM Loading | Description |
 |-----------|---------|------|---------------|-------------|
-| ⚛️ **React** | `pnpm --filter react-showcase start` | 3000 | CDN Script | CDN-based FHEVM |
-| 🚀 **Next.js** | `pnpm --filter nextjs-showcase dev` | 3001 | CDN Script | Next.js with CDN |
-| 💚 **Vue** | `pnpm --filter vue-showcase dev` | 3003 | CDN Script | Vue with CDN |
-| 🖥️ **Node.js** | `pnpm --filter node-showcase start` | CLI | Mock | Server-side demo |
+| ![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB) **React** | `pnpm --filter react-showcase start` | 3000 | CDN Script | CDN-based FHEVM |
+| ![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=next.js&logoColor=white) **Next.js** | `pnpm --filter nextjs-showcase dev` | 3001 | CDN Script | Next.js with CDN |
+| ![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=flat-square&logo=vue.js&logoColor=4FC08D) **Vue** | `pnpm --filter vue-showcase dev` | 3003 | CDN Script | Vue with CDN |
+| ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=flat-square&logo=node.js&logoColor=white) **Node.js** | `pnpm --filter node-showcase start` | CLI | Mock | Server-side demo |
 
 ## 🔧 **How FHEVM Loading Works**
 
@@ -242,36 +242,36 @@ pnpm deploy
 
 We've created NPX packages that let you create FHEVM applications instantly:
 
-### **⚛️ React NPX Package**
+### **![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) React NPX Package**
 ```bash
 npx create-fhevm-react my-app
 cd my-app
 npm install
 npm start
 ```
-- **Package:** [create-fhevm-react](https://www.npmjs.com/package/create-fhevm-react) | **Live Demo:** [React Showcase](https://react-showcase-1738.up.railway.app/)
+- **📦 Package:** [![npm](https://img.shields.io/npm/v/create-fhevm-react?style=flat-square&logo=npm&logoColor=white&color=red)](https://www.npmjs.com/package/create-fhevm-react) [create-fhevm-react](https://www.npmjs.com/package/create-fhevm-react) | **🔗 Live Demo:** [React Showcase](https://react-showcase-1738.up.railway.app/)
 - **Features:** Complete React app with **Universal FHEVM SDK**, beautiful UI, deployed contract
 - **Tech:** React 18, TypeScript, Create React App, Tailwind CSS
 
-### **🚀 Next.js NPX Package**
+### **![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white) Next.js NPX Package**
 ```bash
 npx create-fhevm-nextjs my-app
 cd my-app
 npm install
 npm run dev
 ```
-- **Package:** [create-fhevm-nextjs](https://www.npmjs.com/package/create-fhevm-nextjs) | **Live Demo:** [Next.js Showcase](https://nextjs-showcase-1661.up.railway.app/)
+- **📦 Package:** [![npm](https://img.shields.io/npm/v/create-fhevm-nextjs?style=flat-square&logo=npm&logoColor=white&color=red)](https://www.npmjs.com/package/create-fhevm-nextjs) [create-fhevm-nextjs](https://www.npmjs.com/package/create-fhevm-nextjs) | **🔗 Live Demo:** [Next.js Showcase](https://nextjs-showcase-1661.up.railway.app/)
 - **Features:** Complete Next.js app with **Universal FHEVM SDK**, beautiful UI, deployed contract
 - **Tech:** Next.js 15, TypeScript, App Router, Tailwind CSS
 
-### **💚 Vue NPX Package**
+### **![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D) Vue NPX Package**
 ```bash
 npx create-fhevm-vue my-app
 cd my-app
 npm install
 npm run dev
 ```
-- **Package:** [create-fhevm-vue](https://www.npmjs.com/package/create-fhevm-vue) | **Live Demo:** [Vue Showcase](https://vue-showcase-2780.up.railway.app/)
+- **📦 Package:** [![npm](https://img.shields.io/npm/v/create-fhevm-vue?style=flat-square&logo=npm&logoColor=white&color=red)](https://www.npmjs.com/package/create-fhevm-vue) [create-fhevm-vue](https://www.npmjs.com/package/create-fhevm-vue) | **🔗 Live Demo:** [Vue Showcase](https://vue-showcase-2780.up.railway.app/)
 - **Features:** Complete Vue app with **Universal FHEVM SDK**, beautiful UI, deployed contract
 - **Tech:** Vue 3, TypeScript, Vite, Tailwind CSS
 
@@ -301,7 +301,7 @@ npm run dev
 
 ## 🎯 **Framework Examples**
 
-### **⚛️ React Showcase**
+### **![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) React Showcase**
 ```bash
 cd packages/react-showcase
 pnpm start
@@ -311,7 +311,7 @@ pnpm start
 - **Tech:** React 18, TypeScript, Create React App
 - **FHEVM:** CDN import from Zama's CDN
 
-### **🚀 Next.js Showcase**
+### **![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white) Next.js Showcase**
 ```bash
 cd packages/nextjs-showcase
 pnpm dev
@@ -321,7 +321,7 @@ pnpm dev
 - **Tech:** Next.js 15, TypeScript, App Router
 - **FHEVM:** Local `@zama-fhe/relayer-sdk` package
 
-### **💚 Vue Showcase**
+### **![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D) Vue Showcase**
 ```bash
 cd packages/vue-showcase
 pnpm dev
@@ -407,9 +407,9 @@ import { useWallet, useFhevm, useContract, useFhevmOperations } from '@fhevm-sdk
 
 All examples are running with **real FHEVM interactions** on Sepolia testnet:
 
-- **⚛️ React Showcase:** [https://react-showcase-1738.up.railway.app/](https://react-showcase-1738.up.railway.app/)
-- **🚀 Next.js Showcase:** [https://nextjs-showcase-1661.up.railway.app/](https://nextjs-showcase-1661.up.railway.app/)
-- **💚 Vue Showcase:** [https://vue-showcase-2780.up.railway.app/](https://vue-showcase-2780.up.railway.app/)
+- **![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) React Showcase:** [https://react-showcase-1738.up.railway.app/](https://react-showcase-1738.up.railway.app/)
+- **![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white) Next.js Showcase:** [https://nextjs-showcase-1661.up.railway.app/](https://nextjs-showcase-1661.up.railway.app/)
+- **![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D) Vue Showcase:** [https://vue-showcase-2780.up.railway.app/](https://vue-showcase-2780.up.railway.app/)
 
 **Contract Details:**
 - **Contract:** `0xead137D42d2E6A6a30166EaEf97deBA1C3D1954e`
