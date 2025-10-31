@@ -61,12 +61,30 @@ module.exports = {
       // Ignore Vue imports in React showcase (Vue adapters are not used)
       const path = require('path');
       
-      // Ignore vue imports from @fhevm-sdk
+      // Configure resolve FIRST to ensure alias is applied before plugins process modules
+      webpackConfig.resolve = webpackConfig.resolve || {};
+      
+      // Alias vue to empty module to prevent resolution errors from @fhevm-sdk
+      // This MUST be set before webpack processes any modules
+      webpackConfig.resolve.alias = {
+        ...webpackConfig.resolve.alias,
+        'vue': path.resolve(__dirname, 'src/vue-empty.js')
+      };
+      
+      // Ensure proper module resolution order to prevent multiple React instances
+      webpackConfig.resolve.modules = [
+        path.resolve(__dirname, 'node_modules'), // Prioritize app's node_modules
+        ...(webpackConfig.resolve.modules || ['node_modules']),
+        'node_modules'
+      ];
+      
+      // Ignore vue imports from @fhevm-sdk (additional safeguard)
       webpackConfig.plugins = webpackConfig.plugins || [];
       webpackConfig.plugins.push(
         new webpack.IgnorePlugin({
           resourceRegExp: /^vue$/,
-          contextRegExp: /@fhevm-sdk/
+          // Match any context that contains @fhevm-sdk
+          contextRegExp: /fhevm-sdk/
         })
       );
 
@@ -76,18 +94,6 @@ module.exports = {
         '@zama-fhe/relayer-sdk/node': 'commonjs @zama-fhe/relayer-sdk/node'
         // Note: ethers is browser-compatible, so we bundle it instead of externalizing
       });
-
-      // Ensure proper module resolution order to prevent multiple React instances
-      // Don't use aliases for React as it breaks subpath imports (react/jsx-dev-runtime, react-dom/client)
-      // Instead, ensure node_modules resolution prioritizes the app's node_modules
-      webpackConfig.resolve = webpackConfig.resolve || {};
-      
-      // Alias vue to empty module to prevent resolution errors from @fhevm-sdk
-      // This ensures any 'vue' import resolves to an empty stub instead of failing
-      webpackConfig.resolve.alias = {
-        ...webpackConfig.resolve.alias,
-        'vue': path.resolve(__dirname, 'src/vue-empty.js')
-      };
       
       webpackConfig.resolve.modules = [
         path.resolve(__dirname, 'node_modules'), // Prioritize app's node_modules
