@@ -1,4 +1,4 @@
-// File: E:\OCT-BOUNTY\fhevm-react-template\packages\nextjs-showcase\app\page.tsx
+// File: /Users/zhangelf/node/zama-dev/fhevm-react-template/packages/nextjs-showcase/app/page.tsx
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

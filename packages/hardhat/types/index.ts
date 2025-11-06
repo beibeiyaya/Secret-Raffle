@@ -26,5 +26,7 @@ export type { FHECounter } from "./contracts/FHECounter";
 export { FHECounter__factory } from "./factories/contracts/FHECounter__factory";
 export type { ReviewCardsFHE } from "./contracts/ReviewCardsFHE_uint32.sol/ReviewCardsFHE";
 export { ReviewCardsFHE__factory } from "./factories/contracts/ReviewCardsFHE_uint32.sol/ReviewCardsFHE__factory";
+export type { SecretRaffle } from "./contracts/SecretRaffle";
+export { SecretRaffle__factory } from "./factories/contracts/SecretRaffle__factory";
 export type { SimpleVoting_uint32 } from "./contracts/SimpleVoting_uint32";
 export { SimpleVoting_uint32__factory } from "./factories/contracts/SimpleVoting_uint32__factory";

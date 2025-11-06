@@ -3,7 +3,7 @@
  */
 
 import { useState, useCallback } from 'react';
-import { initializeFheInstance } from '../core/index.js';
+import { initializeFheInstance } from '../core/index';
 
 export function useFhevm() {
   const [instance, setInstance] = useState<any>(null);

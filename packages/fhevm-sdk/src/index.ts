@@ -4,9 +4,9 @@
  */
 
 // Core FHEVM functionality
-export * from './core/index.js';
+export * from './core/index';
 
 // Framework adapters - explicit exports to avoid conflicts
-export { useWallet, useFhevm, useContract, useDecrypt, useEncrypt } from './adapters/react.js';
-export { useWalletVue, useFhevmVue, useContractVue, useDecryptVue, useEncryptVue, useFhevmOperationsVue } from './adapters/vue.js';
-export { FhevmNode } from './adapters/node.js';
+export { useWallet, useFhevm, useContract, useDecrypt, useEncrypt } from './adapters/react';
+export { useWalletVue, useFhevmVue, useContractVue, useDecryptVue, useEncryptVue, useFhevmOperationsVue } from './adapters/vue';
+export { FhevmNode } from './adapters/node';

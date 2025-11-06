@@ -54,6 +54,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ReviewCardsFHE__factory>;
     getContractFactory(
+      name: "SecretRaffle",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.SecretRaffle__factory>;
+    getContractFactory(
       name: "SimpleVoting_uint32",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.SimpleVoting_uint32__factory>;
@@ -109,6 +113,11 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.ReviewCardsFHE>;
     getContractAt(
+      name: "SecretRaffle",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.SecretRaffle>;
+    getContractAt(
       name: "SimpleVoting_uint32",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -155,6 +164,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ReviewCardsFHE>;
     deployContract(
+      name: "SecretRaffle",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.SecretRaffle>;
+    deployContract(
       name: "SimpleVoting_uint32",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.SimpleVoting_uint32>;
@@ -209,6 +222,11 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ReviewCardsFHE>;
+    deployContract(
+      name: "SecretRaffle",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.SecretRaffle>;
     deployContract(
       name: "SimpleVoting_uint32",
       args: any[],

@@ -9,7 +9,7 @@ import {
   decryptValue,
   createEncryptedInput,
   publicDecrypt
-} from '../core/index.js';
+} from '../core/index';
 import { ethers } from 'ethers';
 
 export interface FhevmNodeOptions {

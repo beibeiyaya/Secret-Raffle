@@ -3,7 +3,7 @@
  */
 
 import { useState, useCallback } from 'react';
-import { createEncryptedInput } from '../core/index.js';
+import { createEncryptedInput } from '../core/index';
 
 export function useEncrypt() {
   const [isEncrypting, setIsEncrypting] = useState(false);

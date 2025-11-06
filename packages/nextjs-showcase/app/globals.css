@@ -2,6 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  /* Glass morphism card effect */
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl;
+  }
+  
+  /* Button styles */
+  .btn-primary {
+    @apply px-6 py-3 bg-gradient-to-r from-yellow-400 to-purple-500 rounded-full text-black font-semibold hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-2;
+  }
+  
+  .btn-danger {
+    @apply px-6 py-2 bg-red-500/80 rounded-full text-white font-semibold hover:bg-red-600 transition-colors;
+  }
+  
+  /* Status badge */
+  .status-badge {
+    @apply px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider;
+  }
+  
+  /* Info card */
+  .info-card {
+    @apply p-4 bg-white/5 border border-white/10 rounded-lg;
+  }
+  
+  /* Code text */
+  .code-text {
+    @apply font-mono text-xs break-all;
+  }
+}
+
+/* Custom animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-out;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 235, 59, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 235, 59, 0.5);
+}
+
 @layer base {
   :root {
     --zama-yellow: #FFEB3B;

@@ -6,7 +6,7 @@
 // Vue types will be available when used in Vue projects
 // @ts-ignore
 import { ref, computed } from 'vue';
-import { initializeFheInstance, createEncryptedInput, decryptValue, publicDecrypt as corePublicDecrypt } from '../core/index.js';
+import { initializeFheInstance, createEncryptedInput, decryptValue, publicDecrypt as corePublicDecrypt } from '../core/index';
 import { Signer } from 'ethers';
 
 // Wallet composable

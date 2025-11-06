@@ -3,18 +3,18 @@
  */
 
 import { useState, useCallback } from 'react';
-import { decryptValue, publicDecrypt } from '../core/index.js';
+import { decryptValue, publicDecrypt } from '../core/index';
 
 export function useDecrypt() {
   const [isDecrypting, setIsDecrypting] = useState(false);
   const [error, setError] = useState<string>('');
 
-  const decrypt = useCallback(async (handle: string, contractAddress: string, signer: any) => {
+  const decrypt = useCallback(async (encryptedBytes: string, contractAddress: string, signer: any) => {
     setIsDecrypting(true);
     setError('');
     
     try {
-      const result = await decryptValue(handle, contractAddress, signer);
+      const result = await decryptValue(encryptedBytes, contractAddress, signer);
       return result;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Decryption failed');
