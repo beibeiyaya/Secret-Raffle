@@ -125,6 +125,9 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
       onMessage('正在解密结果...');
 
       // Step 4: Get provider and signer for decryption
+      if (!window.ethereum) {
+        throw new Error('No Ethereum provider found');
+      }
       const provider = new (await import('ethers')).ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
 
