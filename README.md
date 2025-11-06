@@ -529,11 +529,23 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- **Zama** for the incredible FHEVM technology
-- **Ethereum Foundation** for Sepolia testnet
+**This project is built upon:**
+
+- **[Zama FHEVM React Template](https://github.com/zama-ai/fhevm-react-template)** - Base project template for FHEVM development
+  - Provides the foundational architecture and SDK structure
+  - Includes pre-configured Hardhat setup and testing framework
+  - Offers React integration patterns for FHEVM
+
+**Special thanks to:**
+
+- **[Zama](https://www.zama.ai/)** for the groundbreaking FHEVM technology and comprehensive developer tools
+- **[@zama-ai/fhevm-solidity](https://github.com/zama-ai/fhevm-solidity)** - Solidity library for FHE operations
+- **[@zama-fhe/relayer-sdk](https://www.npmjs.com/package/@zama-fhe/relayer-sdk)** - Client-side encryption/decryption SDK
+- **[fhevmjs](https://github.com/zama-ai/fhevmjs)** - JavaScript library for FHEVM interaction
+- **Ethereum Foundation** for Sepolia testnet infrastructure
 - **Tailwind Labs** for Tailwind CSS
 - **Vercel** for hosting platform
-- **The Open Source Community** for inspiration
+- **The Open Source Community** for inspiration and collaboration
 
 ---
 
