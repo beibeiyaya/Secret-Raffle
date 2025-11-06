@@ -136,12 +136,9 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
       console.log('🔓 解密结果:', decryptedResult);
 
       // Step 6: Show result
-      const isCorrect = Boolean(decryptedResult) && (
-        decryptedResult === true || 
-        decryptedResult === 1 || 
-        decryptedResult === '1' ||
-        String(decryptedResult) === 'true'
-      );
+      // Convert result to boolean - handle various return types
+      const resultValue = decryptedResult as any;
+      const isCorrect = resultValue === true || resultValue === 1 || resultValue === '1' || String(resultValue) === 'true';
       
       if (isCorrect) {
         setResult('correct');
