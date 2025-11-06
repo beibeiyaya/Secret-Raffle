@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
+import { Providers } from '../components/Providers'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Secret Raffle - 机密抽奖平台',
-  description: '基于全同态加密（FHE）技术的 Web3 抽奖平台，让抽奖过程公平透明且保护隐私',
+  title: 'Secret Raffle - Confidential Lottery Platform',
+  description: 'Web3 raffle platform powered by Fully Homomorphic Encryption (FHE), making every raffle fair, transparent, and privacy-preserving',
 }
 
 export default function RootLayout({
@@ -19,7 +20,9 @@ export default function RootLayout({
           src="https://cdn.zama.org/relayer-sdk-js/0.2.0/relayer-sdk-js.umd.cjs"
           strategy="beforeInteractive"
         />
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   )

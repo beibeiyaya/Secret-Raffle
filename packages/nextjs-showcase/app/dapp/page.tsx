@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useWallet, useFhevm } from '@fhevm-sdk';
+import { useAccount, useChainId } from 'wagmi';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useFhevm } from '@fhevm-sdk';
 import SecretRaffleForm from '../../components/SecretRaffleForm';
 
 // Contract address (deployed on Sepolia)
@@ -12,15 +14,11 @@ export default function DAppPage() {
   const router = useRouter();
   const [message, setMessage] = useState<string>('');
 
-  // Wallet and FHEVM hooks
-  const { 
-    address: account, 
-    chainId, 
-    isConnected, 
-    connect: connectWallet, 
-    error: walletError 
-  } = useWallet();
+  // Wagmi hooks
+  const { address: account, isConnected } = useAccount();
+  const chainId = useChainId();
   
+  // FHEVM hook
   const { 
     status: fhevmStatus, 
     initialize: initializeFhevm,
@@ -33,21 +31,6 @@ export default function DAppPage() {
       initializeFhevm();
     }
   }, [isConnected, fhevmStatus, initializeFhevm]);
-
-  // Handle wallet connection
-  const handleConnectWallet = async () => {
-    try {
-      await connectWallet();
-      if (walletError) {
-        setMessage(`Wallet error: ${walletError}`);
-        setTimeout(() => setMessage(''), 3000);
-      }
-    } catch (error) {
-      console.error('❌ Wallet connection failed:', error);
-      setMessage(`Wallet connection failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
-      setTimeout(() => setMessage(''), 3000);
-    }
-  };
 
   // Check if on Sepolia (chainId 11155111)
   const isSepoliaNetwork = chainId === 11155111;
@@ -81,21 +64,8 @@ export default function DAppPage() {
                 </div>
               )}
               
-              {/* Wallet Button */}
-              {!isConnected ? (
-                <button 
-                  onClick={handleConnectWallet}
-                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors dark:bg-indigo-500 dark:hover:bg-indigo-400"
-                >
-                  Connect Wallet
-                </button>
-              ) : (
-                <div className="px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-                  <span className="text-sm font-mono text-gray-700 dark:text-gray-300">
-                    {account?.slice(0, 6)}...{account?.slice(-4)}
-                  </span>
-                </div>
-              )}
+              {/* RainbowKit Connect Button */}
+              <ConnectButton />
             </div>
           </div>
         </nav>
@@ -147,12 +117,9 @@ export default function DAppPage() {
               <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto">
                 Please connect your wallet to participate in Secret Raffle
               </p>
-              <button 
-                onClick={handleConnectWallet}
-                className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-lg shadow-sm transition-colors dark:bg-indigo-500 dark:hover:bg-indigo-400"
-              >
-                Connect Wallet
-              </button>
+              <div className="flex justify-center">
+                <ConnectButton />
+              </div>
               <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   💡 Make sure your wallet is switched to Sepolia Testnet
@@ -225,4 +192,3 @@ export default function DAppPage() {
     </div>
   );
 }
-

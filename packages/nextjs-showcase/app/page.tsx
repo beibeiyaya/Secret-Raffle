@@ -336,7 +336,7 @@ export default function LandingPage() {
             {/* Social Links */}
             <div className="flex items-center gap-6">
               <a 
-                href="https://twitter.com/SecretRaffle" 
+                href="https://x.com/beibei0217" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors"
