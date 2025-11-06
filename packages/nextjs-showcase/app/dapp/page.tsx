@@ -39,12 +39,12 @@ export default function DAppPage() {
     try {
       await connectWallet();
       if (walletError) {
-        setMessage(`钱包错误: ${walletError}`);
+        setMessage(`Wallet error: ${walletError}`);
         setTimeout(() => setMessage(''), 3000);
       }
     } catch (error) {
-      console.error('❌ 钱包连接失败:', error);
-      setMessage(`钱包连接失败: ${error instanceof Error ? error.message : '未知错误'}`);
+      console.error('❌ Wallet connection failed:', error);
+      setMessage(`Wallet connection failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
       setTimeout(() => setMessage(''), 3000);
     }
   };
@@ -122,12 +122,12 @@ export default function DAppPage() {
                 </div>
               </div>
               <div>
-                <h3 className="text-base font-semibold text-red-900 dark:text-red-200 mb-2">错误的网络</h3>
+                <h3 className="text-base font-semibold text-red-900 dark:text-red-200 mb-2">Wrong Network</h3>
                 <p className="text-sm text-red-700 dark:text-red-300 mb-1">
-                  请切换到 <span className="font-semibold">Sepolia 测试网</span> 才能使用此应用。
+                  Please switch to <span className="font-semibold">Sepolia Testnet</span> to use this application.
                 </p>
                 <p className="text-xs text-red-600 dark:text-red-400">
-                  当前 Chain ID: {chainId} · 需要: 11155111 (Sepolia)
+                  Current Chain ID: {chainId} · Required: 11155111 (Sepolia)
                 </p>
               </div>
             </div>
@@ -143,9 +143,9 @@ export default function DAppPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">连接钱包开始</h2>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Connect Wallet to Start</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto">
-                请先连接你的钱包来参与 Secret Raffle 机密抽奖
+                Please connect your wallet to participate in Secret Raffle
               </p>
               <button 
                 onClick={handleConnectWallet}
@@ -155,7 +155,7 @@ export default function DAppPage() {
               </button>
               <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  💡 确保你的钱包已切换到 Sepolia 测试网
+                  💡 Make sure your wallet is switched to Sepolia Testnet
                 </p>
               </div>
             </div>
@@ -169,8 +169,8 @@ export default function DAppPage() {
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
                 </svg>
               </div>
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">正在初始化 FHEVM...</h2>
-              <p className="text-gray-600 dark:text-gray-400">请稍候，正在加载加密模块</p>
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Initializing FHEVM...</h2>
+              <p className="text-gray-600 dark:text-gray-400">Please wait, loading encryption module</p>
             </div>
           </div>
         ) : fhevmStatus === 'error' ? (
@@ -181,13 +181,13 @@ export default function DAppPage() {
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd"/>
                 </svg>
               </div>
-              <h2 className="text-xl font-bold text-red-900 dark:text-red-200 mb-2">FHEVM 初始化失败</h2>
-              <p className="text-gray-600 dark:text-gray-400 mb-6">{fhevmError || '未知错误'}</p>
+              <h2 className="text-xl font-bold text-red-900 dark:text-red-200 mb-2">FHEVM Initialization Failed</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">{fhevmError || 'Unknown error'}</p>
               <button 
                 onClick={() => window.location.reload()}
                 className="px-6 py-2.5 bg-red-600 hover:bg-red-500 text-white font-semibold rounded-lg shadow-sm transition-colors"
               >
-                刷新页面重试
+                Reload Page and Retry
               </button>
             </div>
           </div>
@@ -206,7 +206,7 @@ export default function DAppPage() {
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"/>
               </svg>
-              <span>合约地址:</span>
+              <span>Contract Address:</span>
               <code className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400 font-mono rounded">
                 {SECRET_RAFFLE_ADDRESS}
               </code>
@@ -216,7 +216,7 @@ export default function DAppPage() {
                 rel="noopener noreferrer"
                 className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 underline font-medium"
               >
-                在 Etherscan 上查看 ↗
+                View on Etherscan ↗
               </a>
             </div>
           </div>

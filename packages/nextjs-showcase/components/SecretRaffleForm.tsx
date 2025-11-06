@@ -39,11 +39,11 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
   // Validate Twitter URL
   const validateTwitterUrl = (url: string): boolean => {
     if (!url.trim()) {
-      setTwitterError('请输入推特链接');
+      setTwitterError('Please enter Twitter URL');
       return false;
     }
     if (!url.includes('twitter.com/') && !url.includes('x.com/')) {
-      setTwitterError('请输入有效的推特链接（包含 twitter.com/ 或 x.com/）');
+      setTwitterError('Please enter a valid Twitter URL (containing twitter.com/ or x.com/)');
       return false;
     }
     setTwitterError('');
@@ -53,24 +53,24 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
   // Validate number
   const validateNumber = (num: string): boolean => {
     if (!num.trim()) {
-      setNumberError('请输入数字');
+      setNumberError('Please enter a number');
       return false;
     }
     const numValue = parseInt(num);
     if (isNaN(numValue)) {
-      setNumberError('请输入有效的数字');
+      setNumberError('Please enter a valid number');
       return false;
     }
     if (numValue < 0) {
-      setNumberError('数字不能小于 0');
+      setNumberError('Number cannot be less than 0');
       return false;
     }
     if (numValue > 10000) {
-      setNumberError('数字不能大于 10000');
+      setNumberError('Number cannot exceed 10000');
       return false;
     }
     if (!Number.isInteger(numValue)) {
-      setNumberError('请输入整数');
+      setNumberError('Please enter an integer');
       return false;
     }
     setNumberError('');
@@ -93,36 +93,36 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
     }
 
     setIsSubmitting(true);
-    onMessage('正在加密你的猜测...');
+    onMessage('Encrypting your guess...');
 
     try {
       // Check if contract is ready
       if (!contract || !isContractReady) {
-        throw new Error('合约未准备好，请稍候');
+        throw new Error('Contract not ready, please wait');
       }
 
       // Step 1: Encrypt the guess number
       const numValue = parseInt(guessNumber);
-      console.log('🔐 加密数字:', numValue);
+      console.log('🔐 Encrypting number:', numValue);
       
       const encryptedData = await encrypt(contractAddress, account, numValue);
-      console.log('✅ 加密完成:', encryptedData);
-      onMessage('正在提交到区块链...');
+      console.log('✅ Encryption complete:', encryptedData);
+      onMessage('Submitting to blockchain...');
 
       // Step 2: Submit to contract
       // encryptedData has structure { encryptedData, proof }
       const tx = await contract.submitGuess(encryptedData.encryptedData, encryptedData.proof);
-      console.log('📤 交易已发送:', tx.hash);
-      onMessage('等待交易确认...');
+      console.log('📤 Transaction sent:', tx.hash);
+      onMessage('Waiting for confirmation...');
 
       const receipt = await tx.wait();
-      console.log('✅ 交易已确认:', receipt.hash);
-      onMessage('正在获取结果...');
+      console.log('✅ Transaction confirmed:', receipt.hash);
+      onMessage('Getting result...');
 
       // Step 3: Get encrypted result
       const encryptedResult = await contract.getMyResult(account);
-      console.log('📥 获取到加密结果:', encryptedResult);
-      onMessage('正在解密结果...');
+      console.log('📥 Encrypted result received:', encryptedResult);
+      onMessage('Decrypting result...');
 
       // Step 4: Get provider and signer for decryption
       if (!window.ethereum) {
@@ -133,7 +133,7 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
 
       // Step 5: Decrypt result (this is an ebool)
       const decryptedResult = await decrypt(encryptedResult, contractAddress, signer);
-      console.log('🔓 解密结果:', decryptedResult);
+      console.log('🔓 Decryption result:', decryptedResult);
 
       // Step 6: Show result
       // Convert result to boolean - handle various return types
@@ -142,23 +142,23 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
       
       if (isCorrect) {
         setResult('correct');
-        onMessage('🎉 恭喜！猜对了！');
+        onMessage('🎉 Congratulations! You guessed it!');
       } else {
         setResult('incorrect');
-        onMessage('❌ 猜错了，再试一次');
+        onMessage('❌ Wrong guess, try again');
       }
 
     } catch (error: any) {
-      console.error('❌ 提交失败:', error);
+      console.error('❌ Submission failed:', error);
       
       if (error.code === 4001 || error.code === 'ACTION_REJECTED') {
-        onMessage('交易被取消');
+        onMessage('Transaction cancelled');
       } else if (error.message?.includes('user rejected')) {
-        onMessage('交易被拒绝');
+        onMessage('Transaction rejected');
       } else if (error.message?.includes('insufficient funds')) {
-        onMessage('余额不足，请确保有足够的 Sepolia ETH');
+        onMessage('Insufficient funds, please ensure you have enough Sepolia ETH');
       } else {
-        onMessage(`错误: ${error.message || '未知错误'}`);
+        onMessage(`Error: ${error.message || 'Unknown error'}`);
       }
     } finally {
       setIsSubmitting(false);
@@ -180,15 +180,15 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
       {result === null ? (
         <>
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">开始猜数字</h2>
-            <p className="text-gray-600 dark:text-gray-400">猜测范围：0 - 10000</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Start Guessing</h2>
+            <p className="text-gray-600 dark:text-gray-400">Guess Range: 0 - 10000</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Twitter URL Input */}
             <div>
               <label htmlFor="twitterUrl" className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
-                推特个人主页 <span className="text-red-500">*</span>
+                Twitter Profile <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -206,13 +206,13 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
               {twitterError && (
                 <p className="mt-2 text-sm text-red-600 dark:text-red-400">{twitterError}</p>
               )}
-              <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">请输入包含 twitter.com/ 或 x.com/ 的链接</p>
+              <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">Please enter a URL containing twitter.com/ or x.com/</p>
             </div>
 
             {/* Number Input */}
             <div>
               <label htmlFor="guessNumber" className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
-                你的幸运数字 <span className="text-red-500">*</span>
+                Your Lucky Number <span className="text-red-500">*</span>
               </label>
               <input
                 type="number"
@@ -223,7 +223,7 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
                   if (numberError) validateNumber(e.target.value);
                 }}
                 onBlur={(e) => validateNumber(e.target.value)}
-                placeholder="输入 0-10000 之间的数字"
+                placeholder="Enter a number between 0-10000"
                 min="0"
                 max="10000"
                 step="1"
@@ -234,7 +234,7 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
                 <p className="mt-2 text-sm text-red-600 dark:text-red-400">{numberError}</p>
               )}
               <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                💡 你的猜测会被加密，只有你能看到
+                💡 Your guess will be encrypted, only you can see it
               </p>
             </div>
 
@@ -250,14 +250,14 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
                   </svg>
-                  <span>处理中...</span>
+                  <span>Processing...</span>
                 </>
               ) : (
                 <>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
-                  <span>提交猜测</span>
+                  <span>Submit Guess</span>
                 </>
               )}
             </button>
@@ -270,10 +270,10 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
                 <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"/>
               </svg>
               <div>
-                <p className="text-sm text-indigo-900 dark:text-indigo-200 font-semibold mb-1">🔒 隐私保护</p>
+                <p className="text-sm text-indigo-900 dark:text-indigo-200 font-semibold mb-1">🔒 Privacy Protected</p>
                 <p className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">
-                  你的猜测数字会被<span className="text-indigo-600 dark:text-indigo-400 font-semibold">全同态加密（FHE）</span>技术加密后提交到区块链。
-                  即使是合约创建者也无法看到你猜了什么数字，只有你本人可以解密查看结果。
+                  Your guessed number will be encrypted using <span className="text-indigo-600 dark:text-indigo-400 font-semibold">Fully Homomorphic Encryption (FHE)</span> technology before being submitted to the blockchain.
+                  Even the contract creator cannot see what number you guessed, only you can decrypt and view the result.
                 </p>
               </div>
             </div>
@@ -288,8 +288,8 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
                 </svg>
               </div>
-              <h2 className="text-4xl font-bold mb-4 text-green-600 dark:text-green-400">🎉 恭喜你！</h2>
-              <p className="text-xl text-gray-700 dark:text-gray-300 mb-8">你猜对了幸运数字！</p>
+              <h2 className="text-4xl font-bold mb-4 text-green-600 dark:text-green-400">🎉 Congratulations!</h2>
+              <p className="text-xl text-gray-700 dark:text-gray-300 mb-8">You guessed the lucky number!</p>
             </>
           ) : (
             <>
@@ -298,8 +298,8 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd"/>
                 </svg>
               </div>
-              <h2 className="text-4xl font-bold mb-4 text-red-600 dark:text-red-400">❌ 很遗憾</h2>
-              <p className="text-xl text-gray-700 dark:text-gray-300 mb-8">猜错了，再试一次吧！</p>
+              <h2 className="text-4xl font-bold mb-4 text-red-600 dark:text-red-400">❌ Sorry</h2>
+              <p className="text-xl text-gray-700 dark:text-gray-300 mb-8">Wrong guess, try again!</p>
             </>
           )}
 
@@ -307,12 +307,12 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
             onClick={handleReset}
             className="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold shadow-sm transition-colors dark:bg-indigo-500 dark:hover:bg-indigo-400"
           >
-            再来一次
+            Try Again
           </button>
 
           <div className="mt-8 p-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg">
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              你猜的数字: <span className="text-indigo-600 dark:text-indigo-400 font-bold text-lg">{guessNumber}</span>
+              Your guessed number: <span className="text-indigo-600 dark:text-indigo-400 font-bold text-lg">{guessNumber}</span>
             </p>
           </div>
         </div>
@@ -320,4 +320,3 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
     </div>
   );
 }
-

@@ -23,9 +23,9 @@ export default function LandingPage() {
           </div>
 
           <div className="hidden lg:flex lg:gap-x-12">
-            <a href="#features" className="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400">功能特点</a>
-            <a href="#how-it-works" className="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400">如何使用</a>
-            <a href="https://docs.zama.ai/fhevm" target="_blank" rel="noopener noreferrer" className="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400">技术文档</a>
+            <a href="#features" className="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400">Features</a>
+            <a href="#how-it-works" className="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400">How It Works</a>
+            <a href="https://docs.zama.ai/fhevm" target="_blank" rel="noopener noreferrer" className="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400">Docs</a>
           </div>
 
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -33,7 +33,7 @@ export default function LandingPage() {
               onClick={() => router.push('/dapp')}
               className="text-sm/6 font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-500"
             >
-              进入 DApp <span aria-hidden="true">&rarr;</span>
+              Launch DApp <span aria-hidden="true">&rarr;</span>
             </button>
           </div>
         </nav>
@@ -53,10 +53,10 @@ export default function LandingPage() {
           {/* Announcement Badge */}
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
             <div className="relative rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20 dark:text-gray-400 dark:ring-white/10 dark:hover:ring-white/20">
-              结合 Web3 与 Web2 社交的创新抽奖平台
+              Bridging Web3 and Web2 Social for Fair Raffles
               <a href="https://www.zama.ai/" target="_blank" rel="noopener noreferrer" className="ml-1 font-semibold text-indigo-600 dark:text-indigo-400">
                 <span aria-hidden="true" className="absolute inset-0" />
-                技术文档 <span aria-hidden="true">&rarr;</span>
+                Learn more <span aria-hidden="true">&rarr;</span>
               </a>
             </div>
           </div>
@@ -64,10 +64,10 @@ export default function LandingPage() {
           {/* Main Heading */}
           <div className="text-center">
             <h1 className="text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-7xl dark:text-white">
-              Secret Raffle · 机密抽奖
+              Secret Raffle
             </h1>
             <p className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8 dark:text-gray-400">
-              首个基于全同态加密（FHE）的 Web3 抽奖平台。支持多种玩法、多社交平台接入，让每一次抽奖都公平透明、自动兑现。🎮 当前体验版：猜数字游戏
+              The first Web3 raffle platform powered by Fully Homomorphic Encryption (FHE). Support for multiple game modes, social platform integrations, ensuring every raffle is fair, transparent, and automatically distributed. 🎮 Current Demo: Guess the Number Game
             </p>
 
             {/* CTA Buttons */}
@@ -76,10 +76,10 @@ export default function LandingPage() {
                 onClick={() => router.push('/dapp')}
                 className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400"
               >
-                立即开始
+                Get Started
               </button>
               <a href="#how-it-works" className="text-sm/6 font-semibold text-gray-900 dark:text-white">
-                了解更多 <span aria-hidden="true">→</span>
+                Learn more <span aria-hidden="true">→</span>
               </a>
             </div>
           </div>
@@ -99,10 +99,10 @@ export default function LandingPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-white">
-              传统抽奖平台的痛点
+              Problems with Traditional Raffles
             </h2>
             <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">
-              Web2 抽奖存在诸多问题，用户权益难以保障
+              Web2 raffles suffer from many issues, putting user rights at risk
             </p>
           </div>
 
@@ -116,11 +116,11 @@ export default function LandingPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
                   </div>
-                  不公平黑盒
+                  Unfair Black Box
                 </dt>
                 <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600 dark:text-gray-300">
                   <p className="flex-auto">
-                    抽奖过程完全不透明，后台操作无法监督，用户无法验证结果的真实性，内定中奖屡见不鲜。
+                    The raffle process is completely opaque with no supervision over backend operations. Users cannot verify the authenticity of results, and rigged outcomes are commonplace.
                   </p>
                 </dd>
               </div>
@@ -133,11 +133,11 @@ export default function LandingPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </div>
-                  兑奖困难
+                  Prize Redemption Issues
                 </dt>
                 <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600 dark:text-gray-300">
                   <p className="flex-auto">
-                    中奖后发起者可以随意拒绝兑奖，找各种借口拖延或取消，用户维权成本高且成功率低。
+                    After winning, organizers can arbitrarily refuse to distribute prizes, finding various excuses to delay or cancel. User's rights protection costs are high with low success rates.
                   </p>
                 </dd>
               </div>
@@ -150,11 +150,11 @@ export default function LandingPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
                     </svg>
                   </div>
-                  玩法单一
+                  Limited Gameplay
                 </dt>
                 <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600 dark:text-gray-300">
                   <p className="flex-auto">
-                    只能要求关注、转发等简单操作，缺乏趣味性和互动性，无法满足不同场景的需求。
+                    Only simple actions like follow and retweet are supported. Lacking fun and interactivity, unable to meet different scenario requirements.
                   </p>
                 </dd>
               </div>
@@ -168,10 +168,10 @@ export default function LandingPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-white">
-              为什么选择 Secret Raffle
+              Why Choose Secret Raffle
             </h2>
             <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">
-              结合 Web3 与 Web2 社交的创新抽奖平台，让每一次抽奖都公平透明
+              An innovative raffle platform combining Web3 and Web2 social, making every raffle fair and transparent
             </p>
           </div>
 
@@ -185,11 +185,11 @@ export default function LandingPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
-                  透明机制，绝对公平
+                  Transparent & Absolutely Fair
                 </dt>
                 <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600 dark:text-gray-300">
                   <p className="flex-auto">
-                    所有抽奖逻辑在区块链上公开执行，智能合约开源可审计，采用 FHE 加密技术保护隐私的同时确保结果无法篡改，真正做到公平公正。
+                    All raffle logic executes transparently on blockchain. Smart contracts are open-source and auditable. FHE encryption protects privacy while ensuring results are tamper-proof, achieving true fairness.
                   </p>
                 </dd>
               </div>
@@ -202,11 +202,11 @@ export default function LandingPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                   </div>
-                  奖品预存，实时到账
+                  Pre-stored Prizes, Instant Distribution
                 </dt>
                 <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600 dark:text-gray-300">
                   <p className="flex-auto">
-                    奖品必须提前锁定在智能合约中，中奖后自动转账到账，无需人工审核。支持设置代币/NFT持有条件，筛选优质参与者。
+                    Prizes must be locked in the smart contract in advance. After winning, automatic transfers are processed without manual review. Supports setting token/NFT holding requirements to filter quality participants.
                   </p>
                 </dd>
               </div>
@@ -219,11 +219,11 @@ export default function LandingPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
                     </svg>
                   </div>
-                  多种玩法，丰富互动
+                  Multiple Game Modes, Rich Interactions
                 </dt>
                 <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600 dark:text-gray-300">
                   <p className="flex-auto">
-                    支持传统抽奖、猜数字、预测游戏等多种玩法。可扩展接入 Twitter、Telegram、Discord 等社交平台作为参与条件，玩法持续创新。
+                    Supports traditional raffles, number guessing, prediction games, and more. Can be extended to integrate Twitter, Telegram, Discord as participation requirements with continuously innovative gameplay.
                   </p>
                 </dd>
               </div>
@@ -237,10 +237,10 @@ export default function LandingPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-white">
-              体验第一个 Demo：猜数字游戏
+              Try the First Demo: Guess the Number Game
             </h2>
             <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">
-              简单三步，体验 Web3 + Web2 社交的全新抽奖方式。未来将支持更多玩法（抽奖、预测等）和多社交平台登录（Twitter、Telegram、Discord）
+              Three simple steps to experience the new Web3 + Web2 social raffle method. Future versions will support more game modes (raffles, predictions) and multi-platform logins (Twitter, Telegram, Discord)
             </p>
           </div>
 
@@ -256,10 +256,10 @@ export default function LandingPage() {
                 </div>
                 <div className="pb-8">
                   <h3 className="text-lg font-semibold leading-7 text-gray-900 dark:text-white">
-                    连接 Web3 钱包
+                    Connect Web3 Wallet
                   </h3>
                   <p className="mt-2 text-base leading-7 text-gray-600 dark:text-gray-300">
-                    使用 MetaMask 等 Web3 钱包连接到 Sepolia 测试网，这是参与游戏的身份凭证。
+                    Use MetaMask or other Web3 wallets to connect to the Sepolia testnet. This is your identity credential for participating in the game.
                   </p>
                 </div>
               </div>
@@ -274,10 +274,10 @@ export default function LandingPage() {
                 </div>
                 <div className="pb-8">
                   <h3 className="text-lg font-semibold leading-7 text-gray-900 dark:text-white">
-                    填写推特链接 + 猜数字
+                    Enter Twitter Link + Guess Number
                   </h3>
                   <p className="mt-2 text-base leading-7 text-gray-600 dark:text-gray-300">
-                    输入你的 Twitter 个人主页链接（Web2 社交身份）和猜测的数字（0-10000），系统会使用 FHE 加密你的猜测。
+                    Input your Twitter profile URL (Web2 social identity) and your guessed number (0-10000). The system will encrypt your guess using FHE.
                   </p>
                 </div>
               </div>
@@ -289,10 +289,10 @@ export default function LandingPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold leading-7 text-gray-900 dark:text-white">
-                    查看结果，无限挑战
+                    View Results, Unlimited Attempts
                   </h3>
                   <p className="mt-2 text-base leading-7 text-gray-600 dark:text-gray-300">
-                    区块链计算完成后，你可以解密查看自己的结果。猜错了？没关系，可以无限次尝试，直到找到正确答案！
+                    After blockchain computation completes, you can decrypt and view your result. Guessed wrong? No problem, you can try unlimited times until you find the correct answer!
                   </p>
                 </div>
               </div>
@@ -305,9 +305,9 @@ export default function LandingPage() {
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"/>
                 </svg>
                 <div className="text-sm text-indigo-900 dark:text-indigo-200">
-                  <p className="font-semibold mb-1">🚀 这是第一个技术验证 Demo</p>
+                  <p className="font-semibold mb-1">🚀 This is the First Technical Validation Demo</p>
                   <p className="text-indigo-700 dark:text-indigo-300 text-xs">
-                    未来版本将支持：真实抽奖（奖品预存、自动分发）、多种玩法（随机抽奖、预测竞猜）、多平台登录（Twitter、Telegram、Discord）、代币/NFT 门槛设置等功能。
+                    Future versions will support: real raffles (prize pre-storage, automatic distribution), multiple game modes (random raffles, prediction contests), multi-platform login (Twitter, Telegram, Discord), token/NFT threshold settings, and more.
                   </p>
                 </div>
               </div>
@@ -319,10 +319,10 @@ export default function LandingPage() {
                 onClick={() => router.push('/dapp')}
                 className="rounded-md bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400"
               >
-                🎮 立即开始猜数字
+                🎮 Start Guessing Now
               </button>
               <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
-                需要 Sepolia 测试网 ETH · 免费获取：<a href="https://sepoliafaucet.com/" target="_blank" rel="noopener noreferrer" className="text-indigo-600 dark:text-indigo-400 underline">Sepolia Faucet</a>
+                Requires Sepolia Testnet ETH · Get for free: <a href="https://sepoliafaucet.com/" target="_blank" rel="noopener noreferrer" className="text-indigo-600 dark:text-indigo-400 underline">Sepolia Faucet</a>
               </p>
             </div>
           </div>
@@ -332,10 +332,37 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
         <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
-          <div className="text-center">
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              基于 <a href="https://www.zama.ai/" target="_blank" rel="noopener noreferrer" className="font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400">Zama FHEVM</a> 构建 · 
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="ml-1 font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400">完全开源</a>
+          <div className="flex flex-col items-center gap-6">
+            {/* Social Links */}
+            <div className="flex items-center gap-6">
+              <a 
+                href="https://twitter.com/SecretRaffle" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors"
+                aria-label="Twitter"
+              >
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+              <a 
+                href="https://github.com/beibeiyaya/Secret-Raffle" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors"
+                aria-label="GitHub"
+              >
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+                </svg>
+              </a>
+            </div>
+            
+            {/* Copyright */}
+            <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
+              Built with <a href="https://www.zama.ai/" target="_blank" rel="noopener noreferrer" className="font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400">Zama FHEVM</a> · 
+              <a href="https://github.com/beibeiyaya/Secret-Raffle" target="_blank" rel="noopener noreferrer" className="ml-1 font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400">Fully Open Source</a>
             </p>
           </div>
         </div>
