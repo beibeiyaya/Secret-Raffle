@@ -10,12 +10,17 @@ let fheInstance: any = null;
  * Initialize FHEVM instance for browser environment
  */
 async function initializeBrowserFheInstance() {
+  console.log('🔍 Checking FHEVM initialization requirements...');
+  console.log('- window exists:', typeof window !== 'undefined');
+  console.log('- window.ethereum exists:', typeof window !== 'undefined' && !!window.ethereum);
+  
   if (typeof window === 'undefined' || !window.ethereum) {
     throw new Error('Ethereum provider not found. Please install MetaMask or connect a wallet.');
   }
 
   // Check for both uppercase and lowercase versions of RelayerSDK
   let sdk = (window as any).RelayerSDK || (window as any).relayerSDK;
+  console.log('- RelayerSDK available:', !!sdk);
   
   if (!sdk) {
     throw new Error('RelayerSDK not loaded. Please include the script tag in your HTML:\n<script src="https://cdn.zama.org/relayer-sdk-js/0.2.0/relayer-sdk-js.umd.cjs"></script>');
@@ -280,6 +285,16 @@ export async function encryptValue(
 }
 
 /**
+ * Helper function to convert Uint8Array to hex string
+ */
+function toHexString(bytes: Uint8Array | string): string {
+  if (typeof bytes === 'string') {
+    return bytes.startsWith('0x') ? bytes : '0x' + bytes;
+  }
+  return '0x' + Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+/**
  * Create encrypted input for contract interaction (matches showcase API)
  */
 export async function createEncryptedInput(contractAddress: string, userAddress: string, value: number) {
@@ -294,38 +309,46 @@ export async function createEncryptedInput(contractAddress: string, userAddress:
   
   console.log('✅ Encrypted input created successfully');
   console.log('🔍 Encrypted result structure:', result);
+  console.log('🔍 Result keys:', Object.keys(result));
   
   // The FHEVM SDK returns an object with handles and inputProof
-  // We need to extract the correct values for the contract
+  // We need to extract and format the correct values for the contract
   if (result && typeof result === 'object') {
     // If result has handles array, use the first handle
     if (result.handles && Array.isArray(result.handles) && result.handles.length > 0) {
+      const handle = toHexString(result.handles[0]);
+      const proof = toHexString(result.inputProof);
+      console.log('📦 Formatted encrypted data:', { handle, proofLength: proof.length });
       return {
-        encryptedData: result.handles[0],
-        proof: result.inputProof
+        encryptedData: handle,
+        proof: proof
       };
     }
     // If result has encryptedData and proof properties
     else if (result.encryptedData && result.proof) {
       return {
-        encryptedData: result.encryptedData,
-        proof: result.proof
+        encryptedData: toHexString(result.encryptedData),
+        proof: toHexString(result.proof)
       };
     }
-    // Fallback: use the result as-is
-    else {
+    // Check for common RelayerSDK return format
+    else if (result.data && result.signature) {
+      console.log('📦 Using data+signature format');
       return {
-        encryptedData: result,
-        proof: result
+        encryptedData: toHexString(result.data),
+        proof: toHexString(result.signature)
       };
+    }
+    // Fallback: log all properties and throw error
+    else {
+      console.error('❌ Unknown encrypted result structure. Properties:', Object.keys(result));
+      console.error('❌ Full result:', JSON.stringify(result, null, 2));
+      throw new Error('Unknown encrypted result structure. Check console for details.');
     }
   }
   
-  // If result is not an object, use it directly
-  return {
-    encryptedData: result,
-    proof: result
-  };
+  // If result is not an object, throw error
+  throw new Error('Invalid encryption result: expected object, got ' + typeof result);
 }
 
 /**
