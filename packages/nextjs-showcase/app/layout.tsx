@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
-import { Providers } from '../components/Providers'
+import { ClientProviders } from '../components/ClientProviders'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -20,9 +20,9 @@ export default function RootLayout({
           src="https://cdn.zama.org/relayer-sdk-js/0.2.0/relayer-sdk-js.umd.cjs"
           strategy="beforeInteractive"
         />
-        <Providers>
+        <ClientProviders>
           {children}
-        </Providers>
+        </ClientProviders>
       </body>
     </html>
   )

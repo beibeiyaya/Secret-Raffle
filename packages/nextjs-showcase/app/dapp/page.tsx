@@ -225,3 +225,6 @@ export default function DAppPage() {
     </div>
   );
 }
+
+// 禁用此页面的静态生成，因为它依赖浏览器环境
+export const dynamic = 'force-dynamic';
