@@ -141,11 +141,11 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
       console.log('📥 Encrypted result received:', encryptedResult);
       onMessage('Decrypting result...');
 
-      // Step 4: Get provider and signer for decryption
-      if (!window.ethereum) {
-        throw new Error('No Ethereum provider found');
+      // Step 4: Get provider and signer for decryption (use walletClient from Wagmi)
+      if (!walletClient) {
+        throw new Error('Wallet not connected. Please connect your wallet first.');
       }
-      const provider = new (await import('ethers')).ethers.BrowserProvider(window.ethereum);
+      const provider = new ethers.BrowserProvider(walletClient as any);
       const signer = await provider.getSigner();
 
       // Step 5: Decrypt result (this is an ebool)
