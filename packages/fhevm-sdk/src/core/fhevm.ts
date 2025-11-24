@@ -80,61 +80,11 @@ async function initializeBrowserFheInstance() {
  * REAL FUNCTIONALITY - uses actual RelayerSDK
  */
 async function initializeNodeFheInstance(rpcUrl?: string) {
-  try {
-    console.log('🚀 Initializing REAL FHEVM Node.js instance (v0.9)...');
-    
-    // Use eval to prevent webpack from analyzing these imports
-    const relayerSDKModule = await eval('import("@zama-fhe/relayer-sdk/node")');
-    const { createInstance, generateKeypair } = relayerSDKModule;
-    
-    // Create an EIP-1193 compatible provider for Node.js
-    const ethersModule = await eval('import("ethers")');
-    const provider = new ethersModule.ethers.JsonRpcProvider(rpcUrl || 'https://sepolia.infura.io/v3/YOUR_INFURA_KEY');
-    
-    // Create EIP-1193 provider wrapper
-    const eip1193Provider = {
-      request: async ({ method, params }: { method: string; params: any[] }) => {
-        switch (method) {
-          case 'eth_chainId':
-            return '0xaa36a7'; // Sepolia chain ID
-          case 'eth_accounts':
-            return ['---YOUR-ADDRESS-HERE---'];
-          case 'eth_requestAccounts':
-            return ['---YOUR-ADDRESS-HERE---'];
-          case 'eth_call':
-            // Use the real provider for blockchain calls
-            return await provider.call(params[0]);
-          case 'eth_sendTransaction':
-            // Use the real provider for transactions
-            return await provider.broadcastTransaction(params[0]);
-          default:
-            throw new Error(`Unsupported method: ${method}`);
-        }
-      },
-      on: () => {},
-      removeListener: () => {}
-    };
-    
-    // FHEVM v0.9 Sepolia configuration for Node.js
-    const config = {
-      chainId: 11155111,
-      network: eip1193Provider,
-      aclContractAddress: '0xf0Ffdc93b7E186bC2f8CB3dAA75D86d1930A433D',
-      kmsContractAddress: '0xbE0E383937d564D7FF0BC3b46c51f0bF8d5C311A',
-      inputVerifierContractAddress: '0xBBC1fFCdc7C316aAAd72E807D9b0272BE8F84DA0',
-      verifyingContractAddressDecryption: '0x5D8BD78e2ea6bbE41f26dFe9fdaEAa349e077478',
-      verifyingContractAddressInputVerification: '0x483b9dE06E4E4C7D35CCf5837A1668487406D955',
-      gatewayChainId: 10901,
-      relayerUrl: 'https://relayer.testnet.zama.org',
-    };
-    
-    fheInstance = await createInstance(config);
-    console.log('✅ REAL FHEVM Node.js instance created successfully!');
-    return fheInstance;
-  } catch (err) {
-    console.error('FHEVM Node.js instance creation failed:', err);
-    throw err;
-  }
+  // This is a browser-only application
+  throw new Error(
+    'Node.js environment detected, but this is a browser-only application. ' +
+    'Please use this SDK in a browser with MetaMask or another Web3 wallet installed.'
+  );
 }
 
 /**
