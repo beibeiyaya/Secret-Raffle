@@ -35,35 +35,16 @@ export default function DAppPage() {
       hasWindowEthereum: typeof window !== 'undefined' && !!window.ethereum 
     });
     
-    const initWithRetry = async () => {
-      if (isConnected && fhevmStatus === 'idle') {
-        console.log('🔄 Attempting FHEVM initialization...');
-        
-        // Wait a bit for wagmi to fully initialize the provider
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // Check if window.ethereum is available
-        if (typeof window !== 'undefined' && window.ethereum) {
-          console.log('✅ Provider detected, initializing FHEVM now');
-          initializeFhevm();
-        } else {
-          console.log('⏳ Provider not ready, will retry in 2s...');
-          // Retry after another delay
-          setTimeout(() => {
-            if (window.ethereum) {
-              console.log('✅ Provider now available, initializing FHEVM');
-              initializeFhevm();
-            } else {
-              console.error('❌ Provider still not available after 3s total');
-              setMessage('Wallet provider not detected. Please try reconnecting your wallet.');
-            }
-          }, 2000);
-        }
-      }
-    };
-    
-    initWithRetry();
-  }, [isConnected, fhevmStatus, initializeFhevm, account, chainId]);
+    if (isConnected && fhevmStatus === 'idle') {
+      console.log('🔄 Wallet connected, initializing FHEVM...');
+      // Small delay to ensure wagmi provider is ready
+      const timer = setTimeout(() => {
+        initializeFhevm();
+      }, 500);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [isConnected, fhevmStatus, initializeFhevm]);
 
   // Check if on Sepolia (chainId 11155111)
   const isSepoliaNetwork = chainId === 11155111;
@@ -191,7 +172,7 @@ export default function DAppPage() {
               </button>
             </div>
           </div>
-        ) : isSepoliaNetwork ? (
+        ) : fhevmStatus === 'ready' && isSepoliaNetwork ? (
           <SecretRaffleForm 
             contractAddress={SECRET_RAFFLE_ADDRESS}
             account={account!}

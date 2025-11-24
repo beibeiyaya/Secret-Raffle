@@ -32,9 +32,17 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
   const [numberError, setNumberError] = useState('');
 
   // FHEVM hooks
-  const { contract, isReady: isContractReady } = useContract(contractAddress, SECRET_RAFFLE_ABI);
+  const { contract, isReady: isContractReady, error: contractError } = useContract(contractAddress, SECRET_RAFFLE_ABI);
   const { encrypt, isEncrypting, error: encryptError } = useEncrypt();
   const { decrypt, isDecrypting, error: decryptError } = useDecrypt();
+
+  // Debug logging
+  console.log('📋 SecretRaffleForm render:', {
+    contractAddress,
+    isContractReady,
+    hasContract: !!contract,
+    contractError
+  });
 
   // Validate Twitter URL
   const validateTwitterUrl = (url: string): boolean => {
@@ -174,6 +182,36 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
     setNumberError('');
     onMessage('');
   };
+
+  // Show loading state while contract is initializing
+  if (!isContractReady) {
+    return (
+      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm p-12">
+        <div className="text-center">
+          <div className="w-20 h-20 mx-auto mb-6">
+            <svg className="animate-spin text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+            </svg>
+          </div>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+            {contractError ? 'Contract Connection Failed' : 'Preparing Contract...'}
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400">
+            {contractError ? contractError : 'Please wait while we connect to the smart contract'}
+          </p>
+          {contractError && (
+            <button
+              onClick={() => window.location.reload()}
+              className="mt-6 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-lg shadow-sm transition-colors"
+            >
+              Reload Page
+            </button>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm p-8">

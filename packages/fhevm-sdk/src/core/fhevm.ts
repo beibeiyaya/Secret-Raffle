@@ -23,7 +23,7 @@ async function initializeBrowserFheInstance() {
   console.log('- RelayerSDK available:', !!sdk);
   
   if (!sdk) {
-    throw new Error('RelayerSDK not loaded. Please include the script tag in your HTML:\n<script src="https://cdn.zama.org/relayer-sdk-js/0.2.0/relayer-sdk-js.umd.cjs"></script>');
+    throw new Error('RelayerSDK not loaded. Please include the script tag in your HTML:\n<script src="https://cdn.zama.org/relayer-sdk-js/0.3.0-5/relayer-sdk-js.umd.cjs"></script>');
   }
 
   console.log('🔍 Step 1: Checking if already initialized...');
