@@ -1,16 +1,44 @@
 'use client';
 
 import '@rainbow-me/rainbowkit/styles.css';
-import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import { WagmiProvider } from 'wagmi';
+import { RainbowKitProvider, connectorsForWallets } from '@rainbow-me/rainbowkit';
+import { 
+  metaMaskWallet, 
+  rainbowWallet, 
+  walletConnectWallet,
+  // 移除与 FHEVM CORS 冲突的钱包
+  // coinbaseWallet,
+  // baseWallet,
+} from '@rainbow-me/rainbowkit/wallets';
+import { WagmiProvider, createConfig, http } from 'wagmi';
 import { sepolia } from 'wagmi/chains';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
-const config = getDefaultConfig({
-  appName: 'Secret Raffle',
-  projectId: 'YOUR_PROJECT_ID', // 可以从 WalletConnect Cloud 获取
+// 自定义钱包连接器，移除冲突的钱包
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommended',
+      wallets: [
+        metaMaskWallet,
+        rainbowWallet,
+        walletConnectWallet,
+      ],
+    },
+  ],
+  {
+    appName: 'Secret Raffle',
+    projectId: 'YOUR_PROJECT_ID',
+  }
+);
+
+const config = createConfig({
+  connectors,
   chains: [sepolia],
-  ssr: false, // 禁用 SSR，仅在客户端运行
+  transports: {
+    [sepolia.id]: http(),
+  },
+  ssr: false,
 });
 
 const queryClient = new QueryClient();

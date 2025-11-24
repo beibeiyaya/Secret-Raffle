@@ -2,12 +2,12 @@
 pragma solidity ^0.8.24;
 
 import { FHE, externalEuint32, euint32, ebool } from "@fhevm/solidity/lib/FHE.sol";
-import { SepoliaConfig } from "@fhevm/solidity/config/ZamaConfig.sol";
+import { ZamaEthereumConfig } from "@fhevm/solidity/config/ZamaConfig.sol";
 
 /// @title Secret Raffle - A confidential number guessing game
 /// @notice Users submit encrypted guesses and check if they match the secret number
 /// @dev Demonstrates FHE by keeping user guesses and results private
-contract SecretRaffle is SepoliaConfig {
+contract SecretRaffle is ZamaEthereumConfig {
     
     // The secret lucky number (encrypted, set to 1024)
     euint32 private secretNumber;

@@ -7,8 +7,8 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useFhevm } from '@fhevm-sdk';
 import SecretRaffleForm from '../../components/SecretRaffleForm';
 
-// Contract address (deployed on Sepolia)
-const SECRET_RAFFLE_ADDRESS = '0x15eB8FeE645286BA7F15704cF0C991A4cD35cbA2';
+// Contract address (deployed on Sepolia - v0.9)
+const SECRET_RAFFLE_ADDRESS = '0xbc5262319Ad8667F2C1c9b3b178b05c22e196968';
 
 export default function DAppPage() {
   const router = useRouter();

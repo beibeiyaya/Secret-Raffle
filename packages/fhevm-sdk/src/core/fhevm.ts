@@ -26,31 +26,51 @@ async function initializeBrowserFheInstance() {
     throw new Error('RelayerSDK not loaded. Please include the script tag in your HTML:\n<script src="https://cdn.zama.org/relayer-sdk-js/0.2.0/relayer-sdk-js.umd.cjs"></script>');
   }
 
-  const { initSDK, createInstance, SepoliaConfig } = sdk;
-
-  // Try to initialize SDK with CDN first (default behavior)
-  // If it fails (e.g., CORS error), fallback to local WASM files
-  try {
-    await initSDK(); // Try CDN first
-    console.log('✅ FHEVM SDK initialized with CDN');
-  } catch (cdnError) {
-    // If CDN fails (usually CORS), fallback to local WASM files
-    console.warn('⚠️ CDN initialization failed, falling back to local WASM files:', cdnError);
-    console.log('🔄 Trying local WASM files from public folder...');
-    await initSDK({
-      tfheParams: '/tfhe_bg.wasm',
-      kmsParams: '/kms_lib_bg.wasm'
-    });
-    console.log('✅ FHEVM SDK initialized with local WASM files');
+  console.log('🔍 Step 1: Checking if already initialized...');
+  console.log('🔍 Current fheInstance:', fheInstance);
+  
+  // Prevent multiple initializations
+  if (fheInstance) {
+    console.log('⚠️ FHEVM already initialized, returning existing instance');
+    return fheInstance;
   }
   
-  const config = { ...SepoliaConfig, network: window.ethereum };
+  const { initSDK, createInstance } = sdk;
+
+  // Initialize SDK (load WASM)
+  console.log('🔍 Step 2: Initializing SDK (loading WASM)...');
+  try {
+    await initSDK();
+    console.log('✅ SDK initialized (WASM loaded)');
+  } catch (error) {
+    console.error('❌ SDK initialization failed:', error);
+    throw error;
+  }
+  
+  // FHEVM v0.9 Sepolia configuration - ALL 7 required parameters
+  const config = {
+    chainId: 11155111,
+    network: window.ethereum,
+    aclContractAddress: '0xf0Ffdc93b7E186bC2f8CB3dAA75D86d1930A433D',
+    kmsContractAddress: '0xbE0E383937d564D7FF0BC3b46c51f0bF8d5C311A',
+    inputVerifierContractAddress: '0xBBC1fFCdc7C316aAAd72E807D9b0272BE8F84DA0',
+    verifyingContractAddressDecryption: '0x5D8BD78e2ea6bbE41f26dFe9fdaEAa349e077478',
+    verifyingContractAddressInputVerification: '0x483b9dE06E4E4C7D35CCf5837A1668487406D955',
+    gatewayChainId: 10901,
+    relayerUrl: 'https://relayer.testnet.zama.org',
+  };
+  
+  console.log('🔍 Step 3: Creating FHEVM instance with config:', config);
   
   try {
     fheInstance = await createInstance(config);
+    console.log('✅ FHEVM instance created successfully:', fheInstance);
     return fheInstance;
   } catch (err) {
-    console.error('FHEVM browser instance creation failed:', err);
+    console.error('❌ createInstance failed with error:', err);
+    console.error('❌ Error type:', typeof err);
+    console.error('❌ Error message:', err?.message);
+    console.error('❌ Error stack:', err?.stack);
     throw err;
   }
 }
@@ -61,11 +81,11 @@ async function initializeBrowserFheInstance() {
  */
 async function initializeNodeFheInstance(rpcUrl?: string) {
   try {
-    console.log('🚀 Initializing REAL FHEVM Node.js instance...');
+    console.log('🚀 Initializing REAL FHEVM Node.js instance (v0.9)...');
     
     // Use eval to prevent webpack from analyzing these imports
     const relayerSDKModule = await eval('import("@zama-fhe/relayer-sdk/node")');
-    const { createInstance, SepoliaConfig, generateKeypair } = relayerSDKModule;
+    const { createInstance, generateKeypair } = relayerSDKModule;
     
     // Create an EIP-1193 compatible provider for Node.js
     const ethersModule = await eval('import("ethers")');
@@ -95,9 +115,17 @@ async function initializeNodeFheInstance(rpcUrl?: string) {
       removeListener: () => {}
     };
     
-    const config = { 
-      ...SepoliaConfig, 
-      network: eip1193Provider 
+    // FHEVM v0.9 Sepolia configuration for Node.js
+    const config = {
+      chainId: 11155111,
+      network: eip1193Provider,
+      aclContractAddress: '0xf0Ffdc93b7E186bC2f8CB3dAA75D86d1930A433D',
+      kmsContractAddress: '0xbE0E383937d564D7FF0BC3b46c51f0bF8d5C311A',
+      inputVerifierContractAddress: '0xBBC1fFCdc7C316aAAd72E807D9b0272BE8F84DA0',
+      verifyingContractAddressDecryption: '0x5D8BD78e2ea6bbE41f26dFe9fdaEAa349e077478',
+      verifyingContractAddressInputVerification: '0x483b9dE06E4E4C7D35CCf5837A1668487406D955',
+      gatewayChainId: 10901,
+      relayerUrl: 'https://relayer.testnet.zama.org',
     };
     
     fheInstance = await createInstance(config);
@@ -308,46 +336,32 @@ export async function createEncryptedInput(contractAddress: string, userAddress:
   const result = await inputHandle.encrypt();
   
   console.log('✅ Encrypted input created successfully');
-  console.log('🔍 Encrypted result structure:', result);
+  console.log('🔍 Result structure:', result);
   console.log('🔍 Result keys:', Object.keys(result));
   
-  // The FHEVM SDK returns an object with handles and inputProof
-  // We need to extract and format the correct values for the contract
+  // FHEVM v0.9: SDK returns { handles: [bytes32], inputProof: bytes }
+  // IMPORTANT: Return as-is, DO NOT convert!
   if (result && typeof result === 'object') {
-    // If result has handles array, use the first handle
+    // v0.9 format: handles array + inputProof
     if (result.handles && Array.isArray(result.handles) && result.handles.length > 0) {
-      const handle = toHexString(result.handles[0]);
-      const proof = toHexString(result.inputProof);
-      console.log('📦 Formatted encrypted data:', { handle, proofLength: proof.length });
+      console.log('📦 Returning encrypted data directly from SDK (no conversion)');
+      console.log('📦 handles[0]:', result.handles[0]);
+      console.log('📦 inputProof type:', typeof result.inputProof);
+      
+      // Return directly without any conversion
       return {
-        encryptedData: handle,
-        proof: proof
+        encryptedData: result.handles[0],
+        proof: result.inputProof
       };
     }
-    // If result has encryptedData and proof properties
-    else if (result.encryptedData && result.proof) {
-      return {
-        encryptedData: toHexString(result.encryptedData),
-        proof: toHexString(result.proof)
-      };
-    }
-    // Check for common RelayerSDK return format
-    else if (result.data && result.signature) {
-      console.log('📦 Using data+signature format');
-      return {
-        encryptedData: toHexString(result.data),
-        proof: toHexString(result.signature)
-      };
-    }
-    // Fallback: log all properties and throw error
+    // Fallback: log structure
     else {
       console.error('❌ Unknown encrypted result structure. Properties:', Object.keys(result));
-      console.error('❌ Full result:', JSON.stringify(result, null, 2));
-      throw new Error('Unknown encrypted result structure. Check console for details.');
+      console.error('❌ Full result:', result);
+      throw new Error('Unknown encrypted result structure. Expected { handles: [...], inputProof: ... }');
     }
   }
   
-  // If result is not an object, throw error
   throw new Error('Invalid encryption result: expected object, got ' + typeof result);
 }
 

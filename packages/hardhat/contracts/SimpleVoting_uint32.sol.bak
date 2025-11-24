@@ -2,9 +2,9 @@
 pragma solidity ^0.8.24;
 
 import { FHE, externalEuint32, euint32, ebool } from "@fhevm/solidity/lib/FHE.sol";
-import { SepoliaConfig } from "@fhevm/solidity/config/ZamaConfig.sol";
+import { ZamaEthereumConfig } from "@fhevm/solidity/config/ZamaConfig.sol";
 
-contract SimpleVoting_uint32 is SepoliaConfig {
+contract SimpleVoting_uint32 is ZamaEthereumConfig {
     struct Session {
         address creator;
         uint256 endTime;

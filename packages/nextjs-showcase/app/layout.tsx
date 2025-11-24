@@ -17,11 +17,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Script
-          src="https://cdn.zama.org/relayer-sdk-js/0.2.0/relayer-sdk-js.umd.cjs"
+          src="https://cdn.zama.org/relayer-sdk-js/0.3.0-5/relayer-sdk-js.umd.cjs"
           strategy="beforeInteractive"
         />
         <ClientProviders>
-          {children}
+        {children}
         </ClientProviders>
       </body>
     </html>

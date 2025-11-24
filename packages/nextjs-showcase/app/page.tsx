@@ -59,7 +59,7 @@ export default function LandingPage() {
                 Learn more <span aria-hidden="true">&rarr;</span>
               </a>
             </div>
-          </div>
+              </div>
 
           {/* Main Heading */}
           <div className="text-center">
@@ -123,7 +123,7 @@ export default function LandingPage() {
                     The raffle process is completely opaque with no supervision over backend operations. Users cannot verify the authenticity of results, and rigged outcomes are commonplace.
                   </p>
                 </dd>
-              </div>
+                </div>
 
               {/* Pain Point 2 */}
               <div className="flex flex-col">
@@ -140,7 +140,7 @@ export default function LandingPage() {
                     After winning, organizers can arbitrarily refuse to distribute prizes, finding various excuses to delay or cancel. User's rights protection costs are high with low success rates.
                   </p>
                 </dd>
-              </div>
+                </div>
 
               {/* Pain Point 3 */}
               <div className="flex flex-col">
@@ -157,11 +157,11 @@ export default function LandingPage() {
                     Only simple actions like follow and retweet are supported. Lacking fun and interactivity, unable to meet different scenario requirements.
                   </p>
                 </dd>
-              </div>
+                </div>
             </dl>
           </div>
         </div>
-      </div>
+            </div>
 
       {/* Features Section */}
       <div id="features" className="py-24 sm:py-32 bg-gray-50 dark:bg-gray-800">
@@ -174,7 +174,7 @@ export default function LandingPage() {
               An innovative raffle platform combining Web3 and Web2 social, making every raffle fair and transparent
             </p>
           </div>
-
+          
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
             <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
               {/* Feature 1 */}
@@ -183,7 +183,7 @@ export default function LandingPage() {
                   <div className="rounded-lg bg-indigo-600 p-2 dark:bg-indigo-500">
                     <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+                </svg>
                   </div>
                   Transparent & Absolutely Fair
                 </dt>
@@ -209,7 +209,7 @@ export default function LandingPage() {
                     Prizes must be locked in the smart contract in advance. After winning, automatic transfers are processed without manual review. Supports setting token/NFT holding requirements to filter quality participants.
                   </p>
                 </dd>
-              </div>
+                </div>
 
               {/* Feature 3 */}
               <div className="flex flex-col">
@@ -217,8 +217,8 @@ export default function LandingPage() {
                   <div className="rounded-lg bg-indigo-600 p-2 dark:bg-indigo-500">
                     <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
-                    </svg>
-                  </div>
+                                </svg>
+                              </div>
                   Multiple Game Modes, Rich Interactions
                 </dt>
                 <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600 dark:text-gray-300">
@@ -226,11 +226,11 @@ export default function LandingPage() {
                     Supports traditional raffles, number guessing, prediction games, and more. Can be extended to integrate Twitter, Telegram, Discord as participation requirements with continuously innovative gameplay.
                   </p>
                 </dd>
-              </div>
+                              </div>
             </dl>
-          </div>
-        </div>
-      </div>
+                              </div>
+                              </div>
+                            </div>
 
       {/* How It Works Section */}
       <div id="how-it-works" className="py-24 sm:py-32">
@@ -241,8 +241,8 @@ export default function LandingPage() {
             </h2>
             <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">
               Three simple steps to experience the new Web3 + Web2 social raffle method. Future versions will support more game modes (raffles, predictions) and multi-platform logins (Twitter, Telegram, Discord)
-            </p>
-          </div>
+                              </p>
+                            </div>
 
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24">
             <div className="space-y-8">
@@ -279,8 +279,8 @@ export default function LandingPage() {
                   <p className="mt-2 text-base leading-7 text-gray-600 dark:text-gray-300">
                     Input your Twitter profile URL (Web2 social identity) and your guessed number (0-10000). The system will encrypt your guess using FHE.
                   </p>
-                </div>
-              </div>
+                      </div>
+                  </div>
 
               {/* Step 3 */}
               <div className="relative flex gap-x-4">
@@ -294,22 +294,22 @@ export default function LandingPage() {
                   <p className="mt-2 text-base leading-7 text-gray-600 dark:text-gray-300">
                     After blockchain computation completes, you can decrypt and view your result. Guessed wrong? No problem, you can try unlimited times until you find the correct answer!
                   </p>
-                </div>
-              </div>
-            </div>
+                    </div>
+                  </div>
+                    </div>
 
             {/* Demo Notice */}
             <div className="mt-12 p-4 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 rounded-xl">
               <div className="flex items-start gap-3">
                 <svg className="w-5 h-5 text-indigo-600 dark:text-indigo-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"/>
-                </svg>
+                      </svg>
                 <div className="text-sm text-indigo-900 dark:text-indigo-200">
                   <p className="font-semibold mb-1">🚀 This is the First Technical Validation Demo</p>
                   <p className="text-indigo-700 dark:text-indigo-300 text-xs">
                     Future versions will support: real raffles (prize pre-storage, automatic distribution), multiple game modes (random raffles, prediction contests), multi-platform login (Twitter, Telegram, Discord), token/NFT threshold settings, and more.
                   </p>
-                </div>
+                  </div>
               </div>
             </div>
 
@@ -327,7 +327,7 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
-      </div>
+        </div>
 
       {/* Footer */}
       <footer className="bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
