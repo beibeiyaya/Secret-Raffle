@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ethers } from 'ethers';
+import { useWalletClient } from 'wagmi';
 import { useDecrypt, useEncrypt, useContract } from '@fhevm-sdk';
 
 // Contract configuration
@@ -55,13 +56,17 @@ export default function FheCounter({ account, chainId, isConnected, isInitialize
 
   const contractAddress = CONTRACT_ADDRESSES[chainId as keyof typeof CONTRACT_ADDRESSES] || 'Not supported chain';
 
+  // Get provider from Wagmi
+  const { data: walletClient } = useWalletClient();
+
   // Use adapter hooks - they provide state management and error handling
   const { decrypt, isDecrypting, error: decryptError } = useDecrypt();
   const { encrypt, isEncrypting, error: encryptError } = useEncrypt();
-  const { contract: readContract } = useContract(
-    contractAddress !== 'Not supported chain' ? contractAddress : '',
-    CONTRACT_ABI
-  );
+  const { contract: readContract } = useContract({
+    address: contractAddress !== 'Not supported chain' ? contractAddress : '',
+    abi: CONTRACT_ABI,
+    provider: walletClient
+  });
 
   // Get encrypted count from contract
   const getCount = async () => {

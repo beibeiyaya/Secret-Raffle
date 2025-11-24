@@ -125,7 +125,7 @@ Components use the same hooks as React showcase:
 Same as React showcase:
 - **`useWallet()`** - Wallet connection management
 - **`useFhevm()`** - FHEVM instance management
-- **`useContract(address, abi)`** - Contract instance management
+- **`useContract({ address, abi, provider })`** - Contract instance management (requires provider from Wagmi)
 - **`useEncrypt()`** - Encryption operations
 - **`useDecrypt()`** - Decryption operations
 
