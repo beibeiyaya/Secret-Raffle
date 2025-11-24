@@ -92,12 +92,12 @@ async function initializeNodeFheInstance(rpcUrl?: string) {
  * MAINTAINS BACKWARD COMPATIBILITY
  */
 export async function initializeFheInstance(options?: { rpcUrl?: string }) {
-  // Detect environment
-  if (typeof window !== 'undefined' && window.ethereum) {
-    // Browser environment - use existing working code
+  // Detect environment - only check for window object (browser)
+  if (typeof window !== 'undefined') {
+    // Browser environment
     return initializeBrowserFheInstance();
   } else {
-    // Node.js environment - use new functionality
+    // Node.js environment
     return initializeNodeFheInstance(options?.rpcUrl);
   }
 }
