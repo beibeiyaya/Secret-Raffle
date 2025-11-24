@@ -9,14 +9,23 @@ let fheInstance: any = null;
 /**
  * Initialize FHEVM instance for browser environment
  */
-async function initializeBrowserFheInstance() {
+async function initializeBrowserFheInstance(provider?: any) {
   console.log('🔍 Checking FHEVM initialization requirements...');
   console.log('- window exists:', typeof window !== 'undefined');
-  console.log('- window.ethereum exists:', typeof window !== 'undefined' && !!window.ethereum);
+  console.log('- provider available:', !!provider);
   
-  if (typeof window === 'undefined' || !window.ethereum) {
-    throw new Error('Ethereum provider not found. Please install MetaMask or connect a wallet.');
+  if (typeof window === 'undefined') {
+    throw new Error('Browser environment required');
   }
+  
+  // Use provided provider or fallback to window.ethereum
+  const networkProvider = provider || (window as any).ethereum;
+  
+  if (!networkProvider) {
+    throw new Error('No provider available. Please connect your wallet first.');
+  }
+  
+  console.log('✅ Provider detected:', networkProvider);
 
   // Check for both uppercase and lowercase versions of RelayerSDK
   let sdk = (window as any).RelayerSDK || (window as any).relayerSDK;
@@ -50,7 +59,7 @@ async function initializeBrowserFheInstance() {
   // FHEVM v0.9 Sepolia configuration - ALL 7 required parameters
   const config = {
     chainId: 11155111,
-    network: window.ethereum,
+    network: networkProvider,
     aclContractAddress: '0xf0Ffdc93b7E186bC2f8CB3dAA75D86d1930A433D',
     kmsContractAddress: '0xbE0E383937d564D7FF0BC3b46c51f0bF8d5C311A',
     inputVerifierContractAddress: '0xBBC1fFCdc7C316aAAd72E807D9b0272BE8F84DA0',
@@ -91,11 +100,11 @@ async function initializeNodeFheInstance(rpcUrl?: string) {
  * Initialize FHEVM instance - Environment-aware
  * MAINTAINS BACKWARD COMPATIBILITY
  */
-export async function initializeFheInstance(options?: { rpcUrl?: string }) {
+export async function initializeFheInstance(options?: { provider?: any; rpcUrl?: string }) {
   // Detect environment - only check for window object (browser)
   if (typeof window !== 'undefined') {
-    // Browser environment
-    return initializeBrowserFheInstance();
+    // Browser environment - pass provider if provided
+    return initializeBrowserFheInstance(options?.provider);
   } else {
     // Node.js environment
     return initializeNodeFheInstance(options?.rpcUrl);

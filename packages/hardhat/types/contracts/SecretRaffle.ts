@@ -25,10 +25,10 @@ import type {
 export interface SecretRaffleInterface extends Interface {
   getFunction(
     nameOrSignature:
+      | "confidentialProtocolId"
       | "getMyResult"
       | "isGameReady"
       | "owner"
-      | "protocolId"
       | "submitGuess"
       | "userGuessResults"
   ): FunctionFragment;
@@ -37,6 +37,10 @@ export interface SecretRaffleInterface extends Interface {
     nameOrSignatureOrTopic: "GuessSubmitted" | "SecretNumberInitialized"
   ): EventFragment;
 
+  encodeFunctionData(
+    functionFragment: "confidentialProtocolId",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "getMyResult",
     values: [AddressLike]
@@ -47,10 +51,6 @@ export interface SecretRaffleInterface extends Interface {
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "protocolId",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "submitGuess",
     values: [BytesLike, BytesLike]
   ): string;
@@ -60,6 +60,10 @@ export interface SecretRaffleInterface extends Interface {
   ): string;
 
   decodeFunctionResult(
+    functionFragment: "confidentialProtocolId",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getMyResult",
     data: BytesLike
   ): Result;
@@ -68,7 +72,6 @@ export interface SecretRaffleInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "protocolId", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "submitGuess",
     data: BytesLike
@@ -144,13 +147,13 @@ export interface SecretRaffle extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
+  confidentialProtocolId: TypedContractMethod<[], [bigint], "view">;
+
   getMyResult: TypedContractMethod<[user: AddressLike], [string], "view">;
 
   isGameReady: TypedContractMethod<[], [boolean], "view">;
 
   owner: TypedContractMethod<[], [string], "view">;
-
-  protocolId: TypedContractMethod<[], [bigint], "view">;
 
   submitGuess: TypedContractMethod<
     [encryptedGuess: BytesLike, proof: BytesLike],
@@ -165,6 +168,9 @@ export interface SecretRaffle extends BaseContract {
   ): T;
 
   getFunction(
+    nameOrSignature: "confidentialProtocolId"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
     nameOrSignature: "getMyResult"
   ): TypedContractMethod<[user: AddressLike], [string], "view">;
   getFunction(
@@ -173,9 +179,6 @@ export interface SecretRaffle extends BaseContract {
   getFunction(
     nameOrSignature: "owner"
   ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "protocolId"
-  ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "submitGuess"
   ): TypedContractMethod<

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAccount, useChainId } from 'wagmi';
+import { useAccount, useChainId, useConnectorClient } from 'wagmi';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useFhevm } from '@fhevm-sdk';
 import SecretRaffleForm from '../../components/SecretRaffleForm';
@@ -14,9 +14,10 @@ export default function DAppPage() {
   const router = useRouter();
   const [message, setMessage] = useState<string>('');
 
-  // Wagmi hooks
-  const { address: account, isConnected } = useAccount();
+  // Wagmi hooks - 按文档使用 connector
+  const { address: account, isConnected, connector } = useAccount();
   const chainId = useChainId();
+  const { data: connectorClient } = useConnectorClient();
   
   // FHEVM hook
   const { 
@@ -25,26 +26,43 @@ export default function DAppPage() {
     error: fhevmError 
   } = useFhevm();
 
-  // Auto-initialize FHEVM when wallet connects
+  // Auto-initialize FHEVM when wallet connects (按文档实现)
   useEffect(() => {
-    console.log('📊 DApp useEffect triggered:', { 
-      isConnected, 
-      fhevmStatus, 
-      account,
-      chainId,
-      hasWindowEthereum: typeof window !== 'undefined' && !!window.ethereum 
-    });
-    
-    if (isConnected && fhevmStatus === 'idle') {
-      console.log('🔄 Wallet connected, initializing FHEVM...');
-      // Small delay to ensure wagmi provider is ready
-      const timer = setTimeout(() => {
-        initializeFhevm();
-      }, 500);
-      
-      return () => clearTimeout(timer);
+    if (!isConnected || !connectorClient || fhevmStatus !== 'idle') {
+      return;
     }
-  }, [isConnected, fhevmStatus, initializeFhevm]);
+    
+    const initFhevm = async () => {
+      try {
+        console.log('🔄 Getting provider from connector...');
+        
+        // 按文档：使用 connector.getProvider()
+        let provider = null;
+        
+        if (connector) {
+          provider = await connector.getProvider();
+          console.log('✅ Provider from connector:', provider);
+        }
+        
+        // Fallback to window.ethereum
+        if (!provider && typeof window !== 'undefined') {
+          provider = (window as any).ethereum;
+          console.log('⚠️ Fallback to window.ethereum:', provider);
+        }
+        
+        if (!provider) {
+          throw new Error('No wallet provider found');
+        }
+        
+        // 传递 provider 给 FHEVM 初始化
+        await initializeFhevm(provider);
+      } catch (error) {
+        console.error('❌ FHEVM initialization failed:', error);
+      }
+    };
+    
+    initFhevm();
+  }, [isConnected, connectorClient, connector, fhevmStatus, initializeFhevm]);
 
   // Check if on Sepolia (chainId 11155111)
   const isSepoliaNetwork = chainId === 11155111;

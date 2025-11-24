@@ -26,6 +26,7 @@ import type {
 export interface ReviewCardsFHEInterface extends Interface {
   getFunction(
     nameOrSignature:
+      | "confidentialProtocolId"
       | "createReviewCard"
       | "creationFee"
       | "getCardInfo"
@@ -35,7 +36,6 @@ export interface ReviewCardsFHEInterface extends Interface {
       | "hasVoted"
       | "nextCardId"
       | "owner"
-      | "protocolId"
       | "reviewCards"
       | "setCreationFee"
       | "submitEncryptedRating"
@@ -50,6 +50,10 @@ export interface ReviewCardsFHEInterface extends Interface {
       | "RatingSubmitted"
   ): EventFragment;
 
+  encodeFunctionData(
+    functionFragment: "confidentialProtocolId",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "createReviewCard",
     values?: undefined
@@ -84,10 +88,6 @@ export interface ReviewCardsFHEInterface extends Interface {
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "protocolId",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "reviewCards",
     values: [BigNumberish]
   ): string;
@@ -104,6 +104,10 @@ export interface ReviewCardsFHEInterface extends Interface {
     values?: undefined
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "confidentialProtocolId",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "createReviewCard",
     data: BytesLike
@@ -131,7 +135,6 @@ export interface ReviewCardsFHEInterface extends Interface {
   decodeFunctionResult(functionFragment: "hasVoted", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "nextCardId", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "protocolId", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "reviewCards",
     data: BytesLike
@@ -258,6 +261,8 @@ export interface ReviewCardsFHE extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
+  confidentialProtocolId: TypedContractMethod<[], [bigint], "view">;
+
   createReviewCard: TypedContractMethod<[], [void], "payable">;
 
   creationFee: TypedContractMethod<[], [bigint], "view">;
@@ -298,8 +303,6 @@ export interface ReviewCardsFHE extends BaseContract {
 
   owner: TypedContractMethod<[], [string], "view">;
 
-  protocolId: TypedContractMethod<[], [bigint], "view">;
-
   reviewCards: TypedContractMethod<
     [arg0: BigNumberish],
     [
@@ -333,6 +336,9 @@ export interface ReviewCardsFHE extends BaseContract {
     key: string | FunctionFragment
   ): T;
 
+  getFunction(
+    nameOrSignature: "confidentialProtocolId"
+  ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "createReviewCard"
   ): TypedContractMethod<[], [void], "payable">;
@@ -382,9 +388,6 @@ export interface ReviewCardsFHE extends BaseContract {
   getFunction(
     nameOrSignature: "owner"
   ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "protocolId"
-  ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "reviewCards"
   ): TypedContractMethod<
