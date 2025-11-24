@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ethers } from 'ethers';
+import { useWalletClient } from 'wagmi';
 import { useContract, useEncrypt, useDecrypt } from '@fhevm-sdk';
 
 // SecretRaffle ABI (only the functions we need)
@@ -31,8 +32,15 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
   const [twitterError, setTwitterError] = useState('');
   const [numberError, setNumberError] = useState('');
 
-  // FHEVM hooks
-  const { contract, isReady: isContractReady, error: contractError } = useContract(contractAddress, SECRET_RAFFLE_ABI);
+  // Get provider from Wagmi
+  const { data: walletClient } = useWalletClient();
+
+  // FHEVM hooks - pass provider from Wagmi
+  const { contract, isReady: isContractReady, error: contractError } = useContract({
+    address: contractAddress,
+    abi: SECRET_RAFFLE_ABI,
+    provider: walletClient
+  });
   const { encrypt, isEncrypting, error: encryptError } = useEncrypt();
   const { decrypt, isDecrypting, error: decryptError } = useDecrypt();
 
@@ -41,7 +49,8 @@ export default function SecretRaffleForm({ contractAddress, account, onMessage }
     contractAddress,
     isContractReady,
     hasContract: !!contract,
-    contractError
+    contractError,
+    hasWalletClient: !!walletClient
   });
 
   // Validate Twitter URL

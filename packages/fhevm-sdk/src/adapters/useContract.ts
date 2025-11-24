@@ -1,19 +1,21 @@
 /**
- * Wagmi-integrated hook for contract interactions
- * Uses Wagmi's walletClient instead of window.ethereum
+ * Hook for contract interactions
+ * Accepts a provider/walletClient as parameter (pass from Wagmi in your app)
  */
 
 import { useState, useEffect } from 'react';
-import { useWalletClient } from 'wagmi';
 import { ethers } from 'ethers';
 
-export function useContract(address: string, abi: any[]) {
+interface UseContractProps {
+  address: string;
+  abi: any[];
+  provider?: any; // EIP-1193 provider or Wagmi walletClient
+}
+
+export function useContract({ address, abi, provider }: UseContractProps) {
   const [contract, setContract] = useState<ethers.Contract | null>(null);
   const [isReady, setIsReady] = useState(false);
   const [error, setError] = useState<string>('');
-  
-  // Get walletClient from Wagmi (the RIGHT way)
-  const { data: walletClient } = useWalletClient();
 
   useEffect(() => {
     if (!address || !abi) {
@@ -21,21 +23,21 @@ export function useContract(address: string, abi: any[]) {
       return;
     }
 
-    if (!walletClient) {
-      console.log('⏳ useContract: Waiting for walletClient from Wagmi...');
+    if (!provider) {
+      console.log('⏳ useContract: Waiting for provider...');
       setIsReady(false);
       return;
     }
 
     async function setupContract() {
       try {
-        console.log('🔧 useContract: Setting up contract with Wagmi walletClient');
+        console.log('🔧 useContract: Setting up contract with provider');
         
-        // Use Wagmi's walletClient (not window.ethereum)
-        const provider = new ethers.BrowserProvider(walletClient as any);
+        // Create provider from walletClient or window.ethereum
+        const ethersProvider = new ethers.BrowserProvider(provider);
         
         // Get the signer to enable sending transactions
-        const signer = await provider.getSigner();
+        const signer = await ethersProvider.getSigner();
         const signerAddress = await signer.getAddress();
         console.log('✅ useContract: Signer obtained:', signerAddress);
         
@@ -55,7 +57,7 @@ export function useContract(address: string, abi: any[]) {
     }
 
     setupContract();
-  }, [address, abi, walletClient]);
+  }, [address, abi, provider]);
 
   return {
     contract,
